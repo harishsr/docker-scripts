@@ -4,12 +4,17 @@ After downloading this script, make sure to give the script executable
 privilege before running it:
 
 ```bash
+chmod u+x source_docker.sh
 chmod u+x new_gitlab.sh
 ```
 
 Then you can simply run it:
 
 ```bash
+# Source docker with the latest IP
+./source_docker.sh
+
+# Create a new instance of GitLab
 ./new_gitlab.sh
 ```
 
