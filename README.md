@@ -4,13 +4,13 @@ After downloading this script, make sure to give the script executable
 privilege before running it:
 
 ```bash
-chmod u+x gitlab_instance.sh
+chmod u+x new_gitlab.sh
 ```
 
 Then you can simply run it:
 
 ```bash
-./gitlab_instance.sh
+./new_gitlab.sh
 ```
 
 #### What it does
