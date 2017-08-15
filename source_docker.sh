@@ -1,6 +1,4 @@
 #!/bin/bash
-alias source_docker='eval "$(docker-machine env gitlab-test-env)"'
-
 #
 # This function sets the docker-machine IP (dynamic) in the
 # /etc/hosts file.  It redirects to `docker.local`.  Add the port
@@ -19,5 +17,5 @@ update-docker-host(){
 	[[ -n $DOCKER_IP ]] && sudo /bin/bash -c "echo \"${DOCKER_IP}	docker.local\" >> /etc/hosts"
 }
 
-source_docker
+eval "$(docker-machine env gitlab-test-env)"
 update-docker-host
