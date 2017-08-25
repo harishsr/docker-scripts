@@ -6,6 +6,7 @@
 #
 # http://cavaliercoder.com/blog/update-etc-hosts-for-docker-machine.html
 #
+
 update-docker-host(){
 	# clear existing docker.local entry from /etc/hosts
 	sudo sed -i '' '/[[:space:]]docker\.local$/d' /etc/hosts
@@ -17,5 +18,5 @@ update-docker-host(){
 	[[ -n $DOCKER_IP ]] && sudo /bin/bash -c "echo \"${DOCKER_IP}	docker.local\" >> /etc/hosts"
 }
 
-eval "$(docker-machine env gitlab-test-env)"
 update-docker-host
+eval "$(docker-machine env gitlab-test-env)"
