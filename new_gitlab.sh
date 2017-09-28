@@ -8,7 +8,9 @@ type = gets.chomp.downcase
 puts "What version of GitLab do you want to use?"
 version = "#{gets.chomp}-#{type}.0"
 puts version
-name = "gitlab-#{version.gsub(/\.\d/, '')}"
+puts "Do you want to give it a custom name?"
+name = gets.chomp
+name ||= "gitlab-#{version.gsub(/\.\d$/, '')}"
 new_container = "docker run --detach --env GITLAB_OMNIBUS_CONFIG=\"external_url 'http://$(docker-machine ip gitlab-test-env):#{http_port}'; gitlab_rails['gitlab_shell_ssh_port'] = #{ssh_port};\" --hostname $(docker-machine ip gitlab-test-env) -p #{http_port}:#{http_port} -p #{ssh_port}:22 --name #{name} gitlab/gitlab-#{type}:#{version}"
 
 # INSTALL IT
