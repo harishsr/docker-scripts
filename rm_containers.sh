@@ -7,9 +7,12 @@
 # |_| |_| |_|\___|\__|_| |_|\___/ \__,_|___/
 def destroy_thing(kind, command)
   puts "Are you sure you want to DELETE all stopped #{kind}s (y/N)?"
-  delete_thing = gets.chomp
-  return "No #{kind}s will be removed." if delete_thing != 'y'
-  exec command
+  should_we_delete = gets.chomp.downcase
+  if should_we_delete == 'y'
+    exec command
+  else
+    puts "No #{kind}s will be removed."
+  end
 end
 
 def destroy_images
@@ -17,8 +20,7 @@ def destroy_images
 end
 
 def destroy_containers
-  existing = `docker ps -aq`.gsub(`docker ps -q`, '')
-  destroy_thing 'container', "docker rm #{existing}"
+  destroy_thing 'container', 'docker rm $(docker ps -aq)'
 end
 
 #                           _
