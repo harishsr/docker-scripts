@@ -1,12 +1,6 @@
 #!/usr/bin/env ruby
 
-## VARIABLES
-# PORTS
-ssh_port = 2222
-http_port = 8888
-https_port = 80
-
-docker_vm_name = 'do-docker'
+## PROMPTS
 puts "Do you want to install CE or EE?"
 type = gets.chomp.downcase
 puts "What version of GitLab do you want to use?"
@@ -14,6 +8,12 @@ version = "#{gets.chomp}-#{type}.0"
 puts version
 puts "Do you want to give it a custom name?"
 name = gets.chomp
+
+## VARIABLES
+ssh_port = 2222
+http_port = 8888
+https_port = 80
+docker_vm_name = 'do-docker'
 if name && name.length < 1
   name = "gitlab-#{version.gsub(/\.\d$/, '')}"
 end
