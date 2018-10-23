@@ -1,8 +1,12 @@
 #!/usr/bin/env ruby
 
-# VARIABLES
+## VARIABLES
+# PORTS
 ssh_port = 2222
 http_port = 8888
+https_port = 80
+
+docker_vm_name = 'do-docker'
 puts "Do you want to install CE or EE?"
 type = gets.chomp.downcase
 puts "What version of GitLab do you want to use?"
@@ -13,10 +17,10 @@ name = gets.chomp
 if name && name.length < 1
   name = "gitlab-#{version.gsub(/\.\d$/, '')}"
 end
-new_container = "docker run --detach --env GITLAB_OMNIBUS_CONFIG=\"external_url 'http://$(docker-machine ip gitlab-test-env):#{http_port}'; gitlab_rails['gitlab_shell_ssh_port'] = #{ssh_port};\" --hostname $(docker-machine ip gitlab-test-env) -p #{http_port}:#{http_port} -p #{ssh_port}:22 --name #{name} gitlab/gitlab-#{type}:#{version}"
+new_container = "docker run --detach --env GITLAB_OMNIBUS_CONFIG=\"external_url 'http://$(docker-machine ip #{docker_vm_name})'; gitlab_rails['gitlab_shell_ssh_port'] = #{ssh_port};\" --hostname $(docker-machine ip #{docker_vm_name}) -p #{https_port}:#{https_port} -p #{http_port}:#{http_port} -p #{ssh_port}:22 --name #{name} gitlab/gitlab-#{type}:#{version}"
 
-# INSTALL IT
-puts "\nInstalling GitLab #{version} and naming it #{name}"
+# INSTALLATION
+puts "\nInstalling GitLab #{version} and naming it #{name} in #{docker_vm_name}"
 exec new_container
 
 puts "Finished!"
